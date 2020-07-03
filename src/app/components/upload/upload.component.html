@@ -1,0 +1,4 @@
+<div class="custom-file">
+    <input type="file" id="customFi " (change)="selectFile($event)" accept="image/jpg">
+    <button type="button" class="btn btn-primary" [disabled]="!selectedFiles" (click)="upload2()">Guardar CV</button>
+</div>

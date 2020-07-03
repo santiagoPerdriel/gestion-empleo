@@ -1,0 +1,45 @@
+<app-header>
+</app-header>
+<div class="my-2 text-left">
+    <button *ngIf="authService.hasRole('ROLE_ADMIN')" class="btn btn-rounded btn-primary mt-2" type="button" [routerLink]="['/formulario']">
+      Crear Candidato
+    </button>
+</div>
+<div class="card-columns m-5 animated fadeIn mt-2">
+
+    <div *ngFor="let item of candidatos" class="card puntero w-60">
+        <img *ngIf="item.random==0" class="card-img-top  w-50" src='../../assets/img/hombre.jpeg' alt="Card image cap">
+        <img *ngIf="item.random==1" class="card-img-top  w-50" src='../../assets/img/mujer.jpeg' alt="Card image cap">
+        <img *ngIf="item.random==2" class="card-img-top  w-50" src='../../assets/img/mujer2.jpeg' alt="Card image cap">
+        <img *ngIf="item.random==3" class=" card-img-top w-50 " src='../../assets/img/hombre2.png' alt="Card image cap ">
+        <div class="card-body ">
+            <h5 class="card-title ">{{ item.name }} {{ item.lastname }}</h5>
+            <div *ngFor="let skill of item.skills ">
+                <p class="card-text ">
+
+
+                    <span class="badge badge-pill badge-primary ">
+                            {{ skill.technology }}
+                 
+                       </span>
+
+                </p>
+            </div>
+            <div *ngIf="item.iscv;then content else other_content ">here is ignored</div>
+            <ng-template #content>
+                <button type="button " (click)=clickEvent(item.id) class="btn btn-secondary ">Descargar</button>
+            </ng-template>
+            <ng-template #other_content>
+                <button type="button " class="btn btn-secondary " [routerLink]="[ '/upload',item.id] ">Subir Cv</button>
+            </ng-template>
+            <button *ngIf="authService.hasRole( 'ROLE_ADMIN') " class="btn btn-rounded btn-primary m-2 " type="button " [routerLink]="[ '/formulario', item.id] ">
+                Editar Candidato
+              </button>
+            <button type="button" name="eliminar" (click)='delete(item.id)' class="btn btn-danger btn-sm">eliminar</button>
+
+        </div>
+        <!-- <button type="button " name="editar " [routerLink]="[ '/formulario', item.id] " class="btn btn-primary btn-sm ">editar</button> -->
+
+
+    </div>
+</div>

@@ -1,0 +1,121 @@
+<app-header>
+</app-header>
+
+<div class="card ">
+    <div class="card-header">{{ titulo }}</div>
+    <div class="card-body">
+
+        <form #clienteForm="ngForm">
+
+
+            <div class="form-group row">
+                <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="candidato.name" name="nombre" #nombre="ngModel" required>
+                    <!-- required minlength="4" -->
+
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="apellido" class="col-form-label col-sm-2">Apellido</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="candidato.lastname" name="apellido" #apellido="ngModel">
+                    <!-- required -->
+                </div>
+            </div>
+
+
+
+            <div class="form-group row">
+                <label for="email" class="col-form-label col-sm-2">Email</label>
+                <div class="col-sm-6">
+                    <input type="email" class="form-control" [(ngModel)]="candidato.contact.mail" name="email" #email="ngModel">
+                    <!-- required email -->
+
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="createAt" class="col-form-label col-sm-2">Fecha de naciomiento</label>
+                <div class="col-sm-6">
+                    <input type="date" class="form-control" [(ngModel)]="candidato.birthdate" name="birthdate" #apellido="ngModel">
+
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="apellido" class="col-form-label col-sm-2">DNI</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="candidato.dni" name="apellido" #apellido="ngModel" required>
+                    <!-- required -->
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="apellido" class="col-form-label col-sm-2">Skill</label>
+                <div class="container">
+                    <div *ngFor="let skill of candidato.skills;let index = index ">
+                        <div class="form-group row">
+                            <div class="col border border-light">
+                                <label for="apellido" class="col-form-label ">Tecnologia</label>
+                                <input type="text" class="form-control" [(ngModel)]="skill.technology" name="tencnologia" #technology="ngModel">
+
+
+                            </div>
+                            <div class="col border border-light">
+                                <label for="apellido" class="col-form-label ">tiempo usandola</label>
+                                <input type="text" class="form-control" [(ngModel)]="skill.timeUse" name="timeUse" #timeUse="ngModel">
+
+                            </div>
+
+                        </div>
+                        <button class="btn btn-primary m-1" role="button" (click)='addSkill(skill, index) '>agregar otro Skill</button>
+                        <button class="btn btn-primary" role="button" (click)='deleteSkill(skill) '>Eliminar Skill</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="apellido" class="col-form-label col-sm-2">Experiencia Laboral</label>
+                <div class="container">
+                    <div *ngFor="let job of candidato.jobs;let index = index ">
+                        <div class="form-group row">
+                            <div class="col border border-light">
+                                <label for="apellido" class="col-form-label ">Empresa</label>
+                                <input type="text" class="form-control" [(ngModel)]="job.nameCompany" name="nameCompany" #nameCompany="ngModel">
+
+
+                            </div>
+                            <div class="col border border-light">
+                                <label for="apellido" class="col-form-label ">fecha de inicio</label>
+                                <input type="date" class="form-control" [(ngModel)]="job.startCompany" name="startCompany" #startCompany="ngModel">
+
+                            </div>
+                            <div class="col border border-light">
+                                <label for="apellido" class="col-form-label ">fecha de fin</label>
+                                <input type="date" class="form-control" [(ngModel)]="job.finishCompoany" name="finishCompoany" #finishCompoany="ngModel">
+
+                            </div>
+
+                        </div>
+                        <button class="btn btn-primary m-1" role="button" (click)='addJbob() '>agregar otra empresa</button>
+                        <button class="btn btn-primary" role="button" (click)='deleteJbos(job) '>Eliminar empresa</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary" role="button" (click)='create() ' *ngIf="!candidato.id else elseBlock" [disabled]="!clienteForm.form.valid">Crear</button>
+
+                    <ng-template #elseBlock>
+                        <button class="btn btn-primary" role="button" (click)='update() ' [disabled]="!clienteForm.form.valid">Editar</button>
+                    </ng-template>
+
+                    <button type="button" name="volver" [routerLink]="['/candidatos ']" class="btn btn-primary ml-1">Volver</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
